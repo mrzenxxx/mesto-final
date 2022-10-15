@@ -38,13 +38,14 @@ class Authentication {
 }
 
 const authentication = new Authentication({
-    address: 'http://localhost:3000',
-    //address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
+    // for localhost workflow
+    // address: 'http://localhost:3000',
+    address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
     headers: {
         "Content-Type":
             "application/json",
         authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Origin': '*',
     }
 });
 
