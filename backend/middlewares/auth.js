@@ -16,7 +16,6 @@ if (!secret && process.env.NODE_ENV === 'production') {
   throw new Error('Для работы сервера в production режиме необходимо указать JWT_SECRET.');
 }
 
-
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 

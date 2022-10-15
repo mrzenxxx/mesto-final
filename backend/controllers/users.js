@@ -1,13 +1,13 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+
 const SECRET_KEY_DEV = 'd285e3dceed844f902650f40';
 
 const NotFoundError = require('../errors/not-found-err');
 const SomeWentWrongError = require('../errors/something-went-wrong-err');
 const AuthError = require('../errors/auth-err');
 const UsedEmailError = require('../errors/used-email-err');
-
 
 require('dotenv').config();
 
@@ -20,7 +20,6 @@ if (process.env.NODE_ENV === 'production') {
 if (!secret && process.env.NODE_ENV === 'production') {
   throw new Error('Для работы сервера в production режиме необходимо указать JWT_SECRET.');
 }
-
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})

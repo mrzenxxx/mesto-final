@@ -2,17 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
-
+const cors = require('cors');
 const linkRule = require('./constants/link-rule');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 
-
 const app = express();
 const { PORT = 3000 } = process.env;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger); // подключаем логгер запросов
@@ -24,6 +24,7 @@ const allowedCors = [
 ];
 
 // обработка CORS-запросов
+// eslint-disable-next-line consistent-return
 app.use((req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
@@ -39,7 +40,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
 
 app.get('/crash-test', () => {
   setTimeout(() => {

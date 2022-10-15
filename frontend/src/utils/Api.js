@@ -73,7 +73,7 @@ class Api {
     }
 
     changeLikeCardStatus(id, wasLiked) {
-        return fetch(`${this._address}/cards/likes/${id}`, {
+        return fetch(`${this._address}/cards/${id}/likes`, {
             method: wasLiked? "DELETE" : "PUT",
             headers: this._headers,
         }).then(this._getResponse);
@@ -81,11 +81,13 @@ class Api {
 }
 
 const api = new Api({
-    address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
+    address: 'http://localhost:3000',
+    //address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
     headers: {
         "Content-Type":
             "application/json",
         authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Access-Control-Allow-Origin': '*',
     }
 });
 

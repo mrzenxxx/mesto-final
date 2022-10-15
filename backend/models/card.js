@@ -29,8 +29,7 @@ const CardSchema = new mongoose.Schema({
   },
 });
 
-CardSchema.path('link').validate((link) => {
-  return validator.isURL(link);
-}, 'Укажите ссылку на изображение');
+CardSchema.path('link').validate((link) => validator.isURL(link), 'Укажите ссылку на изображение');
 
+// eslint-disable-next-line new-cap
 module.exports = new mongoose.model('card', CardSchema);

@@ -30,12 +30,9 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.path('avatar').validate((link) => {
-  return validator.isURL(link);
-}, 'Укажите ссылку на аватар');
+UserSchema.path('avatar').validate((link) => validator.isURL(link), 'Укажите ссылку на аватар');
 
-UserSchema.path('email').validate((email) => {
-  return validator.isEmail(email);
-}, 'Некорректный email');
+UserSchema.path('email').validate((email) => validator.isEmail(email), 'Некорректный email');
 
+// eslint-disable-next-line new-cap
 module.exports = new mongoose.model('user', UserSchema);

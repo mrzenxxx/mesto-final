@@ -30,7 +30,7 @@ const App = () => {
     const [selectedCard, setSelectedCard] = useState(emptyCard);
     const [currentUser, setCurrentUser] = useState({});
     const [currentUserInfo, setCurrentUserInfo] = useState({});
-    const [cards, setCards] = useState([]);
+    const [cards, setCards] = useState([api.getInitialCards()]);
 
     const navigate = useNavigate();
 
@@ -116,15 +116,15 @@ const App = () => {
             // проверяем токен пользователя
             authentication.checkToken(token).then((res) => {
                 setLoggedIn(true);
-                setCurrentUserInfo(res.data);
+                setCurrentUser(res);
+                setCurrentUserInfo(res);
                 navigate('/');
             });
         }
     }
 
     function loginUser(data) {
-        localStorage.setItem('token', data.token);
-
+        localStorage.setItem('token', data.token);        
         handleTokenCheck();
     }
 
@@ -154,7 +154,9 @@ const App = () => {
         });
 
         handleTokenCheck();
-    }, []);
+
+
+    }, [cards]);
 
     return (
         <currentUserContext.Provider value={currentUser}>
