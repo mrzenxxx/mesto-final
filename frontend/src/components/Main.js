@@ -42,7 +42,7 @@ const Main = (props) => {
                         <Card key={card._id}
                               card={card}
                               onCardClick={(card) => props.handleCardClick(card)}
-                              onCardLike={() => props.onCardLike(card)}
+                              onCardLike={props.onCardLike}
                               onCardDelete={() => props.onCardDelete(card)}
                         />
                     </React.Fragment>
