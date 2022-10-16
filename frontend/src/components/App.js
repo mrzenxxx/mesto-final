@@ -30,7 +30,7 @@ const App = () => {
     const [selectedCard, setSelectedCard] = useState(emptyCard);
     const [currentUser, setCurrentUser] = useState({});
     const [currentUserInfo, setCurrentUserInfo] = useState({});
-    const [cards, setCards] = useState([api.getInitialCards()]);
+    const [cards, setCards] = useState([]);
 
     const navigate = useNavigate();
 
@@ -156,7 +156,7 @@ const App = () => {
         handleTokenCheck();
 
 
-    }, [cards]);
+    }, []);
 
     return (
         <currentUserContext.Provider value={currentUser}>
