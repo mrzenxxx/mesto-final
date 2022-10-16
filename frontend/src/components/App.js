@@ -30,9 +30,11 @@ const App = () => {
     const [selectedCard, setSelectedCard] = useState(emptyCard);
     const [currentUser, setCurrentUser] = useState({});
     const [currentUserInfo, setCurrentUserInfo] = useState({});
-    const [cards, setCards] = useState([]);
+    const [cards, setCards] = useState([api.getInitialCards()]);
+    let [update, setUpdate] = useState(0);
 
     const navigate = useNavigate();
+
 
     function onAddPlace() {
         setIsAddPlacePopupOpen(true);
@@ -86,13 +88,17 @@ const App = () => {
         }).catch((err) => {
             console.log(`Error: ${err}`);
         });
+
+        handleTokenCheck();
+
+        setUpdate(++update);
+
         return;
     }
 
     function handleCardDelete(card) {
         api.deleteCard(card._id).then(() => {
-            setCards((state) =>  state.filter((c) => c._id !== card._id));//После запроса в API, обновите стейт cards с помощью метода filter: 
-                                                                         //создайте копию массива, исключив из него удалённую карточку.
+            setCards((state) =>  state.filter((c) => c._id !== card._id));
         }).catch((err) => {
             console.log(`Error: ${err}`);
         });
@@ -101,12 +107,16 @@ const App = () => {
 
     function handleAddPlaceSubmit(card) {
         api.postNewCard(card).then((newCard) => {
-            setCards((state) => [newCard, ...state]); //После завершения API-запроса внутри него обновите стейт cards с помощью расширенной копии текущего массива
-                                                      // — используйте оператор ...:
+            setCards((state) => [newCard, ...state]);
+            setUpdate(++update);
             closeAllPopups();
         }).catch((err) => {
             console.log(`Error: ${err}`);
         });
+
+        handleTokenCheck();
+
+
         return;
     }
 
@@ -120,6 +130,7 @@ const App = () => {
                 setCurrentUserInfo(res);
                 navigate('/');
             });
+
         }
     }
 
@@ -140,23 +151,32 @@ const App = () => {
         setIsInfoTooltip(true);
     }
 
-    useEffect(() => {
-        api.getUserInfo().then((userInfo) => {
-            setCurrentUser(userInfo);
-        }).catch((err) => {
-            console.log(`Error: ${err}`);
-        });
+    function renderCards() {
 
         api.getInitialCards().then((cardsArray) => {//Поднимите стейт cards
             setCards(cardsArray);
         }).catch((err) => {
             console.log(`Error: ${err}`);
         });
+    }
 
+    function checkUser(){
+
+        api.getUserInfo().then((userInfo) => {
+            setCurrentUser(userInfo);
+        }).catch((err) => {
+            console.log(`Error: ${err}`);
+        });
+    }
+
+    useEffect(() => {
+
+        checkUser();
+        renderCards();
         handleTokenCheck();
 
 
-    }, []);
+    }, [update]);
 
     return (
         <currentUserContext.Provider value={currentUser}>

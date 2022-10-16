@@ -6,6 +6,12 @@ import currentUserContext from "../contexts/CurrentUserContext"
 const Main = (props) => {
     const currentUser = React.useContext(currentUserContext); // подписываем его на CurrentUserContext и получаем значение контекста.
     //Используйте его поля name, about и avatar вместо стейт-переменных userName, userDescription и userAvatar, соответственно.
+
+    //на случай глюка с карточками при обновлении страницы, чтобы не ругалась консоль
+    function getRandomKeyProp(){
+        return Math.floor(Math.random() * 1000000000);
+    }
+
     return (
         <main className="content">
             <section className="profile">
@@ -38,10 +44,10 @@ const Main = (props) => {
             <section className="elements">
                 {props.cards.map((card) => (
                     // Без указания атрибута `key`, React выдаст предупреждение об его отсутствии
-                    <React.Fragment key={card._id}>
-                        <Card key={card._id}
+                    <React.Fragment key={card?._id||getRandomKeyProp()}>
+                        <Card key={card._id||getRandomKeyProp()}
                               card={card}
-                              onCardClick={(card) => props.handleCardClick(card)}
+                              onCardClick={() => props.handleCardClick(card)}
                               onCardLike={() => props.onCardLike(card)}
                               onCardDelete={() => props.onCardDelete(card)}
                         />

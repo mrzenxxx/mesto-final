@@ -82,13 +82,13 @@ class Api {
 
 const api = new Api({
     //for localhost workflow
-    //address: 'http://localhost:3000',
+    // address: 'http://localhost:3000',
     address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
     headers: {
         "Content-Type":
             "application/json",
         authorization: `Bearer ${localStorage.getItem('token')}`,
-    //    'Access-Control-Allow-Origin': '*',
+       // 'Access-Control-Allow-Origin': '*',
     }
 });
 
