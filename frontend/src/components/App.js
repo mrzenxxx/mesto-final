@@ -30,7 +30,7 @@ const App = () => {
     const [selectedCard, setSelectedCard] = useState(emptyCard);
     const [currentUser, setCurrentUser] = useState({});
     const [currentUserInfo, setCurrentUserInfo] = useState({});
-    const [cards, setCards] = useState([api.getInitialCards()]);
+    const [cards, setCards] = useState([]);
     let [update, setUpdate] = useState(0);
 
     const navigate = useNavigate();
@@ -89,10 +89,8 @@ const App = () => {
             console.log(`Error: ${err}`);
         });
 
-        handleTokenCheck();
-
         setUpdate(++update);
-
+        handleTokenCheck();
         return;
     }
 
@@ -114,8 +112,7 @@ const App = () => {
             console.log(`Error: ${err}`);
         });
 
-        handleTokenCheck();
-
+        // handleTokenCheck();
 
         return;
     }
@@ -152,7 +149,6 @@ const App = () => {
     }
 
     function renderCards() {
-
         api.getInitialCards().then((cardsArray) => {//Поднимите стейт cards
             setCards(cardsArray);
         }).catch((err) => {
@@ -160,23 +156,9 @@ const App = () => {
         });
     }
 
-    function checkUser(){
+    useEffect(() => {renderCards()}, [update]);
 
-        api.getUserInfo().then((userInfo) => {
-            setCurrentUser(userInfo);
-        }).catch((err) => {
-            console.log(`Error: ${err}`);
-        });
-    }
-
-    useEffect(() => {
-
-        checkUser();
-        renderCards();
-        handleTokenCheck();
-
-
-    }, [update]);
+    useEffect( () => {handleTokenCheck()},[]);
 
     return (
         <currentUserContext.Provider value={currentUser}>
