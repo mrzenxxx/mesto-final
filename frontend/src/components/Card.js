@@ -4,7 +4,7 @@ import currentUserContext from "../contexts/CurrentUserContext"
 const Card = (props) => {
     const currentUser = React.useContext(currentUserContext);// подписываем его на CurrentUserContext и получаем значение контекста.
     // Определяем, являемся ли мы владельцем текущей карточки
-    const isOwn = (props.card.owner?._id ===  currentUser._id) || false;
+    const isOwn = (props.card.owner?._id ===  currentUser._id);
 
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName = (

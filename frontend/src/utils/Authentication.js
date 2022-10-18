@@ -44,8 +44,13 @@ const authentication = new Authentication({
     headers: {
         "Content-Type":
             "application/json",
-        authorization: `Bearer ${localStorage.getItem('token')}`,
+        //production
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBiMjJhM2IyYmZlODU1ODE3NjNmYTEiLCJpYXQiOjE2NjE2NzYwNTQsImV4cCI6NjY2NjY5OTk5OX0.oVM0YOHw7dTM54Mt4yPctmggonwM6jXpGRT6xfaX9Wo`,
+
+        //dev
+        // authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBiMjJhM2IyYmZlODU1ODE3NjNmYTEiLCJpYXQiOjE2NjE2NzYwNTQsImV4cCI6MTg4ODg4ODg4OH0.5GpFBZ3oTHWobBllSUXY5mhVrVevVuwSwZgUBfj1B9E`,
         // 'Access-Control-Allow-Origin': '*',
+
     }
 });
 

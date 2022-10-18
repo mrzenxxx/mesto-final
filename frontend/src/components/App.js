@@ -30,8 +30,8 @@ const App = () => {
     const [selectedCard, setSelectedCard] = useState(emptyCard);
     const [currentUser, setCurrentUser] = useState({});
     const [currentUserInfo, setCurrentUserInfo] = useState({});
-    const [cards, setCards] = useState([api.getInitialCards()]);
-    let [update, setUpdate] = useState(0);
+    const [cards, setCards] = useState([]);
+    let   [update, setUpdate] = useState(0);
 
     const navigate = useNavigate();
 
@@ -83,15 +83,14 @@ const App = () => {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
 
         // Отправляем запрос в API и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-            setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-        }).catch((err) => {
-            console.log(`Error: ${err}`);
-        });
-
-        handleTokenCheck();
-
-        setUpdate(++update);
+        api.changeLikeCardStatus(card._id, isLiked)
+            .then((newCard) => {
+                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+            })
+            .then(()=>{setUpdate(++update)})
+            .catch((err) => {
+                console.log(`Error: ${err}`);
+            });
 
         return;
     }
@@ -113,9 +112,6 @@ const App = () => {
         }).catch((err) => {
             console.log(`Error: ${err}`);
         });
-
-        handleTokenCheck();
-
 
         return;
     }
@@ -151,8 +147,7 @@ const App = () => {
         setIsInfoTooltip(true);
     }
 
-    function renderCards() {
-
+    function updateCards() {
         api.getInitialCards().then((cardsArray) => {//Поднимите стейт cards
             setCards(cardsArray);
         }).catch((err) => {
@@ -160,23 +155,12 @@ const App = () => {
         });
     }
 
-    function checkUser(){
+    useEffect(() => {updateCards()}, [update]);
 
-        api.getUserInfo().then((userInfo) => {
-            setCurrentUser(userInfo);
-        }).catch((err) => {
-            console.log(`Error: ${err}`);
-        });
-    }
-
-    useEffect(() => {
-
-        checkUser();
-        renderCards();
+    useEffect( () => {
+        updateCards();
         handleTokenCheck();
-
-
-    }, [update]);
+    },[]);
 
     return (
         <currentUserContext.Provider value={currentUser}>
