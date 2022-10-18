@@ -45,7 +45,7 @@ const Main = (props) => {
                 {props.cards.map((card) => (
                     // Без указания атрибута `key`, React выдаст предупреждение об его отсутствии
                     <React.Fragment key={card?._id||getRandomKeyProp()}>
-                        <Card key={card._id||getRandomKeyProp()}
+                        <Card key={card?._id||getRandomKeyProp()}
                               card={card}
                               onCardClick={() => props.handleCardClick(card)}
                               onCardLike={() => props.onCardLike(card)}

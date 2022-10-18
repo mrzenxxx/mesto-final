@@ -39,17 +39,17 @@ class Authentication {
 
 const authentication = new Authentication({
     // for localhost workflow
-    address: 'http://localhost:3000',
-    // address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
+    // address: 'http://localhost:3000',
+    address: 'https://api.domainname.kmariasha.nomoredomains.sbs',
     headers: {
         "Content-Type":
             "application/json",
         //production
-        //authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBiMjJhM2IyYmZlODU1ODE3NjNmYTEiLCJpYXQiOjE2NjE2NzYwNTQsImV4cCI6NjY2NjY5OTk5OX0.oVM0YOHw7dTM54Mt4yPctmggonwM6jXpGRT6xfaX9Wo`,
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBiMjJhM2IyYmZlODU1ODE3NjNmYTEiLCJpYXQiOjE2NjE2NzYwNTQsImV4cCI6NjY2NjY5OTk5OX0.oVM0YOHw7dTM54Mt4yPctmggonwM6jXpGRT6xfaX9Wo`,
 
         //dev
-        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBiMjJhM2IyYmZlODU1ODE3NjNmYTEiLCJpYXQiOjE2NjE2NzYwNTQsImV4cCI6MTg4ODg4ODg4OH0.5GpFBZ3oTHWobBllSUXY5mhVrVevVuwSwZgUBfj1B9E`,
-        'Access-Control-Allow-Origin': '*',
+        // authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzBiMjJhM2IyYmZlODU1ODE3NjNmYTEiLCJpYXQiOjE2NjE2NzYwNTQsImV4cCI6MTg4ODg4ODg4OH0.5GpFBZ3oTHWobBllSUXY5mhVrVevVuwSwZgUBfj1B9E`,
+        // 'Access-Control-Allow-Origin': '*',
 
     }
 });

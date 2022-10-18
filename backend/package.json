@@ -8,9 +8,9 @@
     "lint": "npx eslint .",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "deploy:sync": "rsync -r --exclude node_modules --exclude *.log . kmariasha@51.250.103.155:/home/kmariasha/backend",
-    "deploy:install": "ssh kmariasha@51.250.103.155 cd /home/kmariasha/backend; npm install",
-    "deploy:restart": "ssh kmariasha@51.250.103.155 pm2 restart app",
+    "deploy:sync": "scp -r --exclude node_modules --exclude *.log . mariasha@84.252.137.200:/home/mariasha/mesto-api-full/backend",
+    "deploy:install": "ssh mariasha@84.252.137.200 cd /home/mariasha/mesto-api-full/backend; npm install",
+    "deploy:restart": "ssh mariasha@84.252.137.200 pm2 restart app",
     "deploy": "npm run deploy:sync && npm run deploy:install && npm run deploy:restart"
   },
   "repository": {
